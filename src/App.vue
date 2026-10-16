@@ -1,29 +1,4 @@
 <script setup>
-import ProductList from "@/components/ProductList.vue"
-import {onMounted, ref} from 'vue'
-import axios from 'axios'
-
-const items = ref([])
-
-const fetchItems = async () => {
-    try {
-        const { data } = await axios.get(
-            "https://6d128d60a2e6d497.mokky.dev/items",
-        )
-        items.value = data.map((obj) => ({
-            ...obj,
-            isFavorite: false,
-            isAdded: false,
-        }))
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-onMounted(async () => {
-    await fetchItems()
-    console.log(items.value.length)
-})
 </script>
 
 <template>
@@ -41,7 +16,24 @@ onMounted(async () => {
                     </div>
                     <ul class="flex gap-10">
                         <li>
-                            <a href=""
+                            <RouterLink
+                                :to="{ name: 'catalog' }"
+                                class="flex gap-3 items-center"
+                            >
+                                <span
+                                    class="p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition"
+                                >
+                                    <img
+                                        src="/catalog-icon.svg"
+                                        alt=""
+                                    />
+                                </span>
+                                Каталог
+                            </RouterLink>
+                        </li>
+                        <li>
+                            <RouterLink
+                                :to="{ name: 'cart' }"
                                class="flex gap-3 items-center"
                             >
                                 <span
@@ -53,11 +45,11 @@ onMounted(async () => {
                                     />
                                 </span>
                                 Корзина
-                            </a>
+                            </RouterLink>
                         </li>
                         <li>
-                            <a
-                                href=""
+                            <RouterLink
+                                :to="{ name: 'favorites' }"
                                 class="flex gap-3 items-center"
                             >
                                 <span
@@ -69,11 +61,11 @@ onMounted(async () => {
                                     />
                                 </span>
                                 Избранное
-                            </a>
+                            </RouterLink>
                         </li>
                         <li>
-                            <a
-                                href=""
+                            <RouterLink
+                                :to="{ name: 'orders' }"
                                 class="flex gap-3 items-center"
                             >
                                 <span
@@ -85,14 +77,13 @@ onMounted(async () => {
                                 />
                                 </span>
                                 Заказы
-                            </a>
+                            </RouterLink>
                         </li>
                     </ul>
                 </div>
             </nav>
             <main class="pt-10">
-                <h1 class="text-[40px] font-bold mb-5">Каталог</h1>
-                <product-list :items="items"></product-list>
+                <RouterView />
             </main>
         </div>
         <footer class="p-6 bg-slate-100">
