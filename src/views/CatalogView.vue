@@ -15,7 +15,6 @@ const cartStore = useCartStore();
 const fetchItems = async () => {
     try {
         const data = await itemsApi.getAll();
-
         items.value = data.map((obj) => ({
             ...obj,
             isFavorite: favoritesStore.isFavorite(obj.id),
@@ -47,66 +46,47 @@ watch(sortBy, (newValue) => {
 
 const filteredProducts = computed(() => {
     let result = [...items.value];
-    console.log(searchQuery.value);
-
     if (searchQuery.value.trim() !== "") {
         const query = searchQuery.value.toLowerCase();
         result = result.filter((product) =>
             product.title.toLowerCase().includes(query),
         );
     }
-
     if (sortBy.value === "price-asc") {
         result.sort((a, b) => a.price - b.price);
     } else if (sortBy.value === "price-desc") {
         result.sort((a, b) => b.price - a.price);
     } else if (sortBy.value === "name-asc") {
         result.sort((a, b) =>
-            a.title.localeCompare(b.title, ["ru", "en"], {
-                sensitivity: "base",
-            }),
+            a.title.localeCompare(b.title, ["ru", "en"], { sensitivity: "base" }),
         );
     } else if (sortBy.value === "name-desc") {
         result.sort((a, b) =>
-            b.title.localeCompare(a.title, ["ru", "en"], {
-                sensitivity: "base",
-            }),
+            b.title.localeCompare(a.title, ["ru", "en"], { sensitivity: "base" }),
         );
     }
-
     return result;
 });
 </script>
 
 <template>
-    <main class="pt-10">
-        <div class="flex justify-between">
-            <h1 class="text-[40px] font-bold mb-5">Каталог</h1>
-            <div class="flex items-center gap-3 mb-4">
-                <search-input
-                    v-model="searchQuery"
-                    placeholder="Поиск по названию..."
-                />
-                <sort-select
-                    v-model="sortBy"
-                    :options="sortOptions"
-                />
+    <main class="pt-6 sm:pt-10">
+        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-4 mb-6">
+            <h1 class="text-3xl sm:text-[40px] font-bold">Каталог</h1>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+                <search-input v-model="searchQuery" placeholder="Поиск по названию..." class="w-full" />
+                <sort-select v-model="sortBy" :options="sortOptions" class="w-full sm:w-auto" />
             </div>
         </div>
-        <div class="grid grid-cols-5 gap-5">
+        <div class="grid grid-cols-1 min-[450px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
             <template v-if="showSkeletonLoader">
-                <product-skeleton-loader
-                    v-for="value in 10"
-                    :key="value"
-                />
+                <product-skeleton-loader v-for="value in 10" :key="value" />
             </template>
             <template v-else>
-                <v-product
-                    v-for="item in filteredProducts"
-                    :key="item.id"
-                    :product="item"
-                ></v-product>
-                <p v-if="filteredProducts.length === 0">Товары не найдены</p>
+                <v-product v-for="item in filteredProducts" :key="item.id" :product="item"></v-product>
+                <p v-if="filteredProducts.length === 0" class="col-span-full text-slate-500 text-center py-10">
+                    Товары не найдены
+                </p>
             </template>
         </div>
     </main>

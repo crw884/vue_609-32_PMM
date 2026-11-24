@@ -88,7 +88,7 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
-    const isAdded = (id) => items.value.some(item => item.id === id)
+    const isAdded = (id) => items.value.some((item) => item.productId === id)
 
     return {
         items,

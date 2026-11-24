@@ -16,7 +16,6 @@ const handleKeydown = (e) => {
 onMounted(() => window.addEventListener("keydown", handleKeydown));
 onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 </script>
-
 <template>
     <Teleport to="body">
         <Transition
@@ -33,7 +32,7 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
                 @click.self="$emit('close')"
             >
                 <div
-                    class="relative w-full max-w-md overflow-hidden rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
+                    class="relative w-full max-w-md overflow-hidden rounded-2xl bg-white p-5 shadow-2xl sm:p-8"
                 >
                     <button
                         type="button"

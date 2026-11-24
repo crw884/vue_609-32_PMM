@@ -1,5 +1,4 @@
 <script setup>
-// ПОМЕНЯТЬ SVG НАДО
 import { useFavoritesStore } from "@/stores/favorites";
 import { useCartStore } from "@/stores/cart";
 
@@ -11,29 +10,29 @@ defineProps({
 </script>
 <template>
     <div
-        class="p-5 bg-slate-100 rounded-xl flex flex-col justify-between gap-2"
+        class="p-4 sm:p-5 bg-slate-100 rounded-xl flex flex-col justify-between gap-3"
     >
         <div>
             <img
                 :src="product.imageUrl"
                 alt=""
-                class="mb-4"
+                class="mb-4 w-full aspect-square object-cover rounded-lg"
             />
-            <h3 class="text-xl font-semibold">
+            <h3 class="text-base sm:text-xl font-semibold line-clamp-2">
                 {{ product.title }}
             </h3>
         </div>
-        <div class="flex items-center justify-between gap-2">
+        <div class="flex flex-col min-[400px]:flex-row items-start min-[400px]:items-center justify-between gap-3">
             <div>
-                <p class="text-slate-500">Цена</p>
-                <b class="text-xl">
+                <p class="text-slate-500 text-xs sm:text-sm">Цена</p>
+                <b class="text-lg sm:text-xl">
                     {{ product.price.toLocaleString("ru-RU") }} ₽
                 </b>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3 w-full min-[400px]:w-auto justify-end">
                 <button
                     @click="favoritesStore.toggleFavorite(product)"
-                    class="rounded-4xl shadow p-3 cursor-pointer hover:scale-110 transition"
+                    class="rounded-4xl shadow p-2.5 sm:p-3 cursor-pointer hover:scale-110 transition"
                     :class="[
             favoritesStore.isFavorite(product.id)
               ? 'bg-red-500'
@@ -63,7 +62,7 @@ defineProps({
               ? cartStore.removeFromCart(product.id)
               : cartStore.addToCart(product)
           "
-                    class="rounded-4xl shadow p-3 cursor-pointer hover:scale-110 transition"
+                    class="rounded-4xl shadow p-2.5 sm:p-3 cursor-pointer hover:scale-110 transition"
                     :class="[
             cartStore.isAdded(product.id)
               ? 'bg-red-500'
