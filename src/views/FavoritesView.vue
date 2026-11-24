@@ -1,9 +1,8 @@
 <script setup>
 import { useFavoritesStore } from "@/stores/favorites";
-import VProduct from "@/components/VProduct.vue";
+import VProduct from "@/components/cards/VProduct.vue";
 const favoritesStore = useFavoritesStore();
 </script>
-
 <template>
     <main class="pt-10">
         <h1 class="text-[40px] font-bold mb-5">Избранное</h1>
@@ -11,7 +10,7 @@ const favoritesStore = useFavoritesStore();
             v-if="favoritesStore.items.length === 0"
             class="flex flex-col gap-5"
         >
-            <p>В избранном пока ничего нет</p>
+            <p>В избранном пока ничего нет ♡</p>
             <RouterLink
                 class="underline"
                 to="/"

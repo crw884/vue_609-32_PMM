@@ -37,3 +37,9 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+#
+/src/components/old/
+
+# ENV
+/.env
