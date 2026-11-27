@@ -47,9 +47,7 @@ defineProps({
                                     :fill="
                   favoritesStore.isFavorite(product.id)
                     ? '#fff'
-                    : '#263141'
-                "
-                                />
+                    : '#263141'"/>
                             </svg>
                         </button>
                         <button
@@ -64,7 +62,7 @@ defineProps({
                                 xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                    d="M18 5.31667C15.225 5.04167 12.4333 4.9 9.65 4.9C8.4 4.9 6.35 4.98333 4.7 5.15L3.5 5.31667M7.58333 4.475L7.76667 3.38333C7.9 2.59167 8 2 9.41667 2H11.5833C13 2 13.1 2.59167 13.2333 3.38333L13.4167 4.475M15.2917 10.9417L15.0833 12.1667C15.0167 12.6 14.95 13.2333 14.95 13.2333C14.8833 14.05 14.3167 14.5333 13.4917 14.5333H7.49167C6.66667 14.5333 6.1 14.05 6.03333 13.2333C5.91667 12.3167 5.8 11.3583 5.7 10.45M5.96667 5.98333C5.91667 6.35833 5.875 6.74167 5.85 7.11667M17.5167 7.91667L16.8 17.3167C16.725 18.3 15.925 19.0333 14.9417 19.0333H6.14167C5.15833 19.0333 4.35833 18.3 4.28333 17.3167L3.575 7.91667"
+                                    d="M18 5.31667C15.225 5.04167 12.4333 4.9 9.65 4.9C8 4.9 6.35 4.98333 4.7 5.15L3 5.31667M7.58333 4.475L7.76667 3.38333C7.9 2.59167 8 2 9.40833 2H11.5917C13 2 13.1083 2.625 13.2333 3.39167L13.4167 4.475M16.2083 7.95L15.6667 16.3417C15.575 17.65 15.5 18.6667 13.175 18.6667H7.825C5.5 18.6667 5.425 17.65 5.33333 16.3417L4.79167 7.95M9.10833 14.0833H11.8833M8.41667 10.75H12.5833"
                                     stroke="#263141"
                                     stroke-width="1.25"
                                     stroke-linecap="round"
@@ -84,8 +82,9 @@ defineProps({
         </div>
         <div class="rounded-4xl bg-white p-1 flex items-center w-full sm:w-auto justify-between sm:justify-start">
             <button
-                class="cursor-pointer w-10 h-10 font-bold flex items-center justify-center rounded-4xl p-3 hover:bg-slate-200 transition"
+                class="cursor-pointer w-10 h-10 font-bold flex items-center justify-center rounded-4xl p-3 hover:bg-slate-200  transition"
                 @click="cartStore.updateQuantity(product.id, -1)"
+                @touchend.prevent=""
             >
                 -
             </button>
@@ -93,6 +92,7 @@ defineProps({
             <button
                 class="cursor-pointer w-10 h-10 font-bold flex items-center justify-center rounded-4xl p-3 hover:bg-slate-200 transition"
                 @click="cartStore.updateQuantity(product.id, 1)"
+                @touchend.prevent=""
             >
                 +
             </button>

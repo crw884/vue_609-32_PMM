@@ -5,6 +5,7 @@ import { useCartStore } from "@/stores/cart";
 import { useFavoritesStore } from "@/stores/favorites";
 import LoginModal from "./components/modals/LoginModal.vue";
 import RegisterModal from "./components/modals/RegisterModal.vue";
+import router from "@/router/index.js";
 
 const authStore = useAuthStore();
 const cartStore = useCartStore();
@@ -19,11 +20,12 @@ onMounted(() => {
     <div class="flex flex-col min-h-dvh">
         <div class="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8 mb-25">
             <nav class="py-3 border-b border-b-slate-200">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
                     <div class="flex items-center justify-between w-full lg:w-auto">
                         <div class="flex items-center gap-3">
-                            <img src="/logo.svg" alt="" class="sm:h-8 h-24" />
-                            <p class="text-sm sm:block">
+                            <RouterLink :to="{name:'catalog'}">
+                            <img src="/logo.svg" alt="" class="sm:h-8 h-16" /></RouterLink>
+                            <p class="text-sm sm:block hidden min-[400px]:inline">
                                 Лучшие цены <br />
                                 в интернет-магазинах
                             </p>
@@ -35,7 +37,7 @@ onMounted(() => {
                 <span class="p-2.5 sm:p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
                   <img src="/catalog-icon.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
                 </span>
-                                <span class="hidden sm:inline">Каталог</span>
+                            <span class="hidden sm:inline whitespace-nowrap" :class="$route.name === 'catalog' ? 'inline' : 'hidden'">Каталог</span>
                             </RouterLink>
                         </li>
                         <li>
@@ -43,7 +45,7 @@ onMounted(() => {
                 <span class="p-2.5 sm:p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
                   <img src="/cart-icon.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
                 </span>
-                                <span class="hidden sm:inline">Корзина ({{ cartStore.totalItems }})</span>
+                            <span class="hidden sm:inline whitespace-nowrap" :class="$route.name === 'cart' ? 'inline' : 'hidden'">Корзина ({{ cartStore.totalItems }})</span>
                             </RouterLink>
                         </li>
                         <li>
@@ -51,7 +53,7 @@ onMounted(() => {
                 <span class="p-2.5 sm:p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
                   <img src="/like-outline.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
                 </span>
-                                <span class="hidden sm:inline">Избранное ({{ favoritesStore.items.length }})</span>
+                            <span class="hidden sm:inline whitespace-nowrap" :class="$route.name === 'favorites' ? 'inline' : 'hidden'">Избранное ({{ favoritesStore.items.length }})</span>
                             </RouterLink>
                         </li>
                         <li v-if="authStore.isAuthenticated">
@@ -59,20 +61,20 @@ onMounted(() => {
                 <span class="p-2.5 sm:p-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
                   <img src="/orders-icon.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
                 </span>
-                                <span class="hidden sm:inline">Заказы</span>
+                            <span class="hidden sm:inline whitespace-nowrap" :class="$route.name === 'orders' ? 'inline' : 'hidden'">Заказы</span>
                             </RouterLink>
                         </li>
                         <li class="flex items-center gap-2 sm:gap-3 w-full lg:w-auto mt-2 lg:mt-0 pt-2 lg:pt-0 border-t lg:border-none border-slate-100">
                             <template v-if="authStore.isAuthenticated">
-                <span class="text-sm font-medium text-slate-700 truncate max-w-[120px] sm:max-w-none">
-                  {{ authStore.user?.fullName }}
-                </span>
-                                <button @click="authStore.logout" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
-                                    Выйти
-                                </button>
+                                <span class="text-sm font-medium text-slate-700 truncate max-w-[120px] sm:max-w-none">
+                                  {{ authStore.user?.fullName }}
+                                </span>
+                                    <button @click="authStore.logout" class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+                                        Выйти
+                                    </button>
                             </template>
                             <template v-else>
-                                <button @click="authStore.activeModal = 'login'" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition cursor-pointer hover:bg-slate-100 flex-1 lg:flex-none">
+                                <button @click="authStore.activeModal = 'login'" class="rounded-lg px-3 py-2 bg-slate-100 sm:bg-transparent text-sm font-medium text-slate-700 transition cursor-pointer hover:bg-slate-200 sm:hover:bg-slate-100 flex-1 lg:flex-none">
                                     Войти
                                 </button>
                                 <button @click="authStore.activeModal = 'register'" class="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition cursor-pointer hover:bg-red-400 flex-1 lg:flex-none">
